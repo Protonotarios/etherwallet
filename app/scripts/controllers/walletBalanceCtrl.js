@@ -8,6 +8,9 @@ var walletBalanceCtrl = function($scope, $sce) {
         decimals: "",
         type: "custom",
     };
+
+    $scope.slide = 2;
+
     $scope.customTokenField = false;
     $scope.saveTokenToLocal = function() {
         globalFuncs.saveTokenToLocal($scope.localToken, function(data) {
@@ -26,10 +29,12 @@ var walletBalanceCtrl = function($scope, $sce) {
             }
         });
     }
+
     /*
     $scope.$watch('wallet', function() {
         if ($scope.wallet) $scope.reverseLookup();
     });
+
     $scope.reverseLookup = function() {
         var _ens = new ens();
         _ens.getName($scope.wallet.getAddressString().substring(2) + '.addr.reverse', function(data) {
@@ -43,8 +48,17 @@ var walletBalanceCtrl = function($scope, $sce) {
         });
     }
     */
+
     $scope.removeTokenFromLocal = function(tokensymbol) {
         globalFuncs.removeTokenFromLocal(tokensymbol, $scope.wallet.tokenObjs);
+    }
+
+    $scope.showDisplayOnTrezor = function() {
+        return ($scope.wallet != null && $scope.wallet.hwType === 'trezor');
+    }
+
+    $scope.displayOnTrezor = function() {
+        TrezorConnect.ethereumGetAddress($scope.wallet.path, function() {});
     }
 };
 module.exports = walletBalanceCtrl;

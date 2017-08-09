@@ -1,6 +1,5 @@
 'use strict';
 var decryptWalletCtrl = function($scope, $sce, walletService) {
-    var hval = window.location.hash;
     $scope.walletType = "";
     $scope.requireFPass = $scope.requirePPass = $scope.showFDecrypt = $scope.showPDecrypt = $scope.showAOnly = $scope.showParityDecrypt = false;
     $scope.filePassword = "";
@@ -39,6 +38,9 @@ var decryptWalletCtrl = function($scope, $sce, walletService) {
                 case nodes.nodeTypes.ETC:
                     $scope.HDWallet.dPath = $scope.HDWallet.ledgerClassicPath;
                     break;
+                case nodes.nodeTypes.MUS:
+                    $scope.HDWallet.dPath = $scope.HDWallet.ledgerMusicPath;
+                    break;
                 default:
                     $scope.HDWallet.dPath = $scope.HDWallet.ledgerPath;
             }
@@ -49,6 +51,9 @@ var decryptWalletCtrl = function($scope, $sce, walletService) {
                     break;
                 case nodes.nodeTypes.ETC:
                     $scope.HDWallet.dPath = $scope.HDWallet.trezorClassicPath;
+                    break;
+                case nodes.nodeTypes.MUS:
+                    $scope.HDWallet.dPath = $scope.HDWallet.trezorMusicPath;
                     break;
                 case nodes.nodeTypes.Ropsten:
                     $scope.HDWallet.dPath = $scope.HDWallet.trezorTestnetPath;
@@ -70,7 +75,6 @@ var decryptWalletCtrl = function($scope, $sce, walletService) {
         } else if ($scope.walletType == 'trezor') {
             $scope.scanTrezor();
         }
-
     }
     $scope.onCustomHDDPathChange = function() {
         $scope.HDWallet.dPath = $scope.HDWallet.customDPath;
@@ -179,13 +183,6 @@ var decryptWalletCtrl = function($scope, $sce, walletService) {
         }
         if ($scope.wallet != null) $scope.notifier.info(globalFuncs.successMsgs[1]);
     };
-    //  $scope.$watch('init', function () {
-    //      if(globalFuncs.getUrlParameter(hval)) {
-    //          $scope.walletType = "addressOnly";
-    //          $scope.addressOnly = globalFuncs.getUrlParameter(hval);
-    //          $scope.decryptAddressOnly();
-    //      }
-    //  });
     $scope.decryptAddressOnly = function() {
         if ($scope.Validator.isValidAddress($scope.addressOnly)) {
             var tempWallet = new Wallet();
@@ -203,7 +200,6 @@ var decryptWalletCtrl = function($scope, $sce, walletService) {
             }
             $scope.notifier.info(globalFuncs.successMsgs[1]);
             walletService.wallet = $scope.wallet;
-            //globalFuncs.setUrlParameter($scope.addressOnly);
         }
     }
     $scope.HWWalletCreate = function(publicKey, chainCode, ledger, path) {
@@ -247,6 +243,19 @@ var decryptWalletCtrl = function($scope, $sce, walletService) {
     }
     $scope.getTrezorPath = function() {
         return $scope.HDWallet.dPath;
+    };
+    $scope.scanMetamask = function() {
+        window.web3.eth.getAccounts(function (err, accounts) {
+          if (err) $scope.notifier.danger(err + '. Are you sure you are on a secure (SSL / HTTPS) connection?')
+          var address = accounts[0]
+          var addressBuffer = Buffer.from(address.slice(2), 'hex');
+          var wallet = new Web3Wallet(addressBuffer);
+          wallet.setBalance(false);
+          // set wallet
+          $scope.wallet = wallet
+          walletService.wallet = wallet
+          $scope.notifier.info(globalFuncs.successMsgs[6])
+        });
     };
 
     // helper function that removes 0x prefix from strings

@@ -136,6 +136,7 @@ sidebar_TransHistory        : '交易歷史 ',
 sidebar_donation            : 'MyEtherWallet是注重你的隱私和安全的免費、開源服務。如果有更多捐贈，我們就能花更多時間開發新功能、聽取你的建議並且滿足你的需要。我們只是兩個想要改變世界的人。幫助我們？ ',
 sidebar_donate              : '捐贈 ',
 sidebar_thanks              : '謝謝你!!! ',
+sidebar_DisplayOnTrezor     : 'Display address on TREZOR',
 
 /* Decrypt Panel */
 decrypt_Access              : '你想要如何存取你的錢包？ ',
@@ -149,13 +150,13 @@ MNEM_more                   : '更多地址 ',
 MNEM_prev                   : '之前的地址 ',
 
 /* Hardware wallets */
-x_Ledger                    : 'Ledger Nano S 錢包',
-ADD_Ledger_1                : '連接至你的 Ledger Nano S ',
+x_Ledger                    : 'Ledger Wallet 錢包',
+ADD_Ledger_1                : '連接至你的 Ledger Wallet ',
 ADD_Ledger_2                : '開啟基於以太坊開發的應用程式（或一個寫成合約的應用程式） ',
 ADD_Ledger_3                : '確認已經開啟設定選項中的瀏覽器支援選項',
 ADD_Ledger_4                : '如果在設定選項中找不到瀏覽器支援選項，請確認你的韌體版本新於[1.2版](https://www.ledgerwallet.com/apps/manager)',
 ADD_Ledger_0b               : '以 [Chrome](https://www.google.com/chrome/browser/desktop/) 或 [Opera](https://www.opera.com/) 瀏覽器重新開啟MyEtherWallet',
-ADD_Ledger_scan             : '連接至 Ledger Nano S ',
+ADD_Ledger_scan             : '連接至 Ledger Wallet ',
 x_Trezor                    : 'TREZOR 錢包 ',
 ADD_Trezor_scan             : '連接至 TREZOR ',
 
@@ -446,7 +447,7 @@ HELP_2a_Desc_6              : 'Keep in mind, you must prevent loss of the keys a
 
 HELP_2b_Title               : '2b) How do I safely / offline / cold storage with MyEtherWallet? ',
 HELP_2b_Desc_1              : 'Go to [https://github.com/kvhnuke/etherwallet/releases/latest](https://github.com/kvhnuke/etherwallet/releases/latest). ',
-HELP_2b_Desc_2              : 'Click on `dist-vX.X.X.X.zip`. ',
+HELP_2b_Desc_2              : 'Click on `etherwallet-vX.X.X.X.zip`. ',
 HELP_2b_Desc_3              : 'Move zip to an airgapped computer. ',
 HELP_2b_Desc_4              : 'Unzip it and double-click `index.html`. ',
 HELP_2b_Desc_5              : 'Generate a wallet with a strong password. ',
